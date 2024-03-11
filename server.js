@@ -4,7 +4,8 @@ const cors = require("cors");
 const session = require("express-session");
 const { default: mongoose } = require("mongoose");
 const MongodbStore = require("connect-mongodb-session")(session);
-
+const path = require("path");
+const router = require("./router/router");
 const app = express();
 
 const store = new MongodbStore({
@@ -25,13 +26,9 @@ app.use(
 		},
 	})
 );
-app.get("/", (req, res) => {
-	console.log(req.session);
-	console.log(req.session.id);
-	//Initializing
-	req.session.isAuthed = true;
-	res.status(200).send("Hello world");
-});
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.use("/", router);
 
 app.listen(8080, async () => {
 	await mongoose.connect("mongodb://localhost:27017/admin");
