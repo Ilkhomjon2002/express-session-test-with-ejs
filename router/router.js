@@ -2,6 +2,7 @@ const router = require("express").Router();
 const loginRoutes = require("../controllers/login");
 const registerRoutes = require("../controllers/register");
 const dashboardRoutes = require("../controllers/dashboard");
+const isAuthed = require("../middlewares/authCheck");
 // app.get("/", (req, res) => {
 // 	console.log(req.session);
 // 	console.log(req.session.id);
@@ -16,6 +17,6 @@ router.get("/", (_, res) => {
 
 router.use("/login", loginRoutes);
 router.use("/register", registerRoutes);
-router.use("/dashboard", dashboardRoutes);
+router.use("/dashboard", isAuthed, dashboardRoutes);
 
 module.exports = router;

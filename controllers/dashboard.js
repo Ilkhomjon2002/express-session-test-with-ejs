@@ -1,10 +1,10 @@
 const router = require("express").Router();
 
 router.get("/", (req, res) => {
-	res.render("dashboard");
+	return res.render("dashboard", { data: req.session });
 });
-
-router.post("/", (req, res) => {
-	res.render("dashboard");
+router.post("/logout", (req, res) => {
+	req.session.destroy();
+	return res.redirect("/login");
 });
 module.exports = router;

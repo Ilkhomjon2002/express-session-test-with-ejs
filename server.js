@@ -13,6 +13,8 @@ const store = new MongodbStore({
 	collection: "sessions",
 });
 
+app.use(express.json());
+app.use(express.urlencoded());
 app.use(helmet());
 app.use(cors());
 app.use(
